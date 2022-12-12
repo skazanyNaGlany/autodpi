@@ -20,6 +20,7 @@ const AppName = "AUTODPI"
 const AppVersion = "0.1"
 const DPIFilePathname = "./dpi.yaml"
 const resolutionCheck = time.Second * 3
+const DefaultDPI = -1
 const DefaultDPI_YAML = `# 96 font DPI is default on XFCE
 # -1 means "no custom font DPI"
 
@@ -304,6 +305,7 @@ func findDpiValue(resolution string) *int {
 
 func loop() {
 	lastResolution := ""
+	dpiValue := 0
 
 	for {
 		time.Sleep(resolutionCheck)
@@ -318,14 +320,20 @@ func loop() {
 
 		dpi := findDpiValue(resolution)
 
-		if dpi == nil {
-			log.Fatalf(
-				"Cannot find font DPI value for %v resolution, please add it in %v file.\n",
+		if dpi != nil {
+			dpiValue = *dpi
+		} else {
+			log.Printf(
+				"Cannot find font DPI value for %v resolution, "+
+					"please add it in %v file. Using default %v (no custom DPI).\n",
 				resolution,
-				fullDPIFilePathname)
+				fullDPIFilePathname,
+				DefaultDPI)
+
+			dpiValue = DefaultDPI
 		}
 
-		log.Printf("Setting font DPI %v\n", *dpi)
+		log.Printf("Setting font DPI %v\n", dpiValue)
 
 		cmd := exec.Command(
 			"xfconf-query",
@@ -334,7 +342,7 @@ func loop() {
 			"-p",
 			"/Xft/DPI",
 			"-s",
-			strconv.Itoa(*dpi))
+			strconv.Itoa(dpiValue))
 
 		cmd.Start()
 		cmd.Wait()
