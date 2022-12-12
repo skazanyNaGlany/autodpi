@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -66,6 +67,19 @@ resolutions:
 
 var fullDPIFilePathname, _ = filepath.Abs(DPIFilePathname)
 var dpiData = make(map[string]any)
+
+func duplicateLog() {
+	logFilename := filepath.Base(os.Args[0]) + ".txt"
+	logFile, err := os.OpenFile(logFilename, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+
+	if err != nil {
+		panic(err)
+	}
+
+	mw := io.MultiWriter(os.Stdout, logFile)
+
+	log.SetOutput(mw)
+}
 
 func getFullAppName() string {
 	return fmt.Sprintf("%v v%v", AppName, AppVersion)
@@ -340,6 +354,7 @@ func loop() {
 }
 
 func main() {
+	duplicateLog()
 	printAppName()
 	checkPlatform()
 
