@@ -18,7 +18,7 @@ import (
 
 const AppName = "AUTODPI"
 const AppVersion = "0.1"
-const DPIFilePathname string = "./dpi.yaml"
+const DPIFilePathname = "./dpi.yaml"
 const resolutionCheck = time.Second * 3
 const DefaultDPI_YAML = `# 96 font DPI is default on XFCE
 # -1 means "no custom font DPI"
