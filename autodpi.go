@@ -83,7 +83,7 @@ func printAppInfo() {
 	log.Println()
 	log.Printf("Font DPI will be read from %v file.\n", DPIFilePathname)
 	log.Println()
-	log.Println("It reqires xdpyinfo, xfconf-query and grep")
+	log.Println("It reqires xrandr, xfconf-query and grep")
 	log.Println("commands.")
 	log.Println()
 	log.Println("This app can be run only on Linux.")
