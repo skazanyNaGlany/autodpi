@@ -1,0 +1,38 @@
+# 96 DPI is default on XFCE
+# -1 means "no custom DPI"
+
+resolutions:
+  - res: 800x600
+    dpi: -1
+  - res: 1024x768
+    dpi: -1
+  - res: 1152x864
+    dpi: -1
+  - res: 1280x720
+    dpi: -1
+  - res: 1280x800
+    dpi: -1
+  - res: 1280x1024
+    dpi: -1
+  - res: 1360x768
+    dpi: -1
+  - res: 1366x768
+    dpi: -1
+  - res: 1600x900
+    dpi: -1
+  - res: 1600x1200
+    dpi: -1
+  - res: 1680x1050
+    dpi: -1
+  - res: 1920x1080
+    dpi: -1
+  - res: 1920x1200
+    dpi: -1
+  - res: 2048x1536
+    dpi: -1
+  - res: 3200x1800
+    dpi: 148
+  - res: 3840x1620
+    dpi: 160
+  - res: 3840x2160
+    dpi: 160
