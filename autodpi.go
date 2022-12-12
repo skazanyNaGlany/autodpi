@@ -66,7 +66,8 @@ resolutions:
     dpi: 160
 `
 
-var fullDPIFilePathname, _ = filepath.Abs(DPIFilePathname)
+var exeDir = filepath.Dir(os.Args[0])
+var fullDPIFilePathname = filepath.Join(exeDir, DPIFilePathname)
 var dpiData = make(map[string]any)
 
 func duplicateLog() {
@@ -361,7 +362,12 @@ func loop() {
 	}
 }
 
+func changeCurrentWorkingDir() {
+	os.Chdir(exeDir)
+}
+
 func main() {
+	changeCurrentWorkingDir()
 	duplicateLog()
 	printAppName()
 	checkPlatform()
