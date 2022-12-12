@@ -38,6 +38,8 @@ resolutions:
     dpi: -1
   - res: 1280x1024
     dpi: -1
+  - res: 1366x664
+    dpi: -1
   - res: 1360x768
     dpi: -1
   - res: 1366x768
