@@ -276,15 +276,35 @@ func getPrimaryScreenResolution() string {
 		log.Fatalln(err)
 	}
 
-	for _, line := range strings.Split(string(output), "\n") {
-		line = strings.TrimSpace(line)
+	lines := strings.Split(string(output), "\n")
+
+	// check for:
+	// connected primary
+	for _, iline := range lines {
+		iline = strings.TrimSpace(iline)
 
 		// parse line like:
 		// Virtual1 connected primary 1366x768+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
-		if strings.Contains(line, " connected primary ") {
-			res := strings.Split(line, " ")[3]
+		if strings.Contains(iline, " connected primary ") {
+			res := strings.Split(iline, " ")[3]
+			res = strings.Split(res, "+")[0]
 
-			return strings.Split(res, "+")[0]
+			return strings.TrimSpace(res)
+		}
+	}
+
+	// check for:
+	// connected
+	for _, iline := range lines {
+		iline = strings.TrimSpace(iline)
+
+		// parse line like:
+		// HDMI-1 connected 1680x1050+0+0 (normal left inverted right x axis y axis) 518mm x 324mm
+		if strings.Contains(iline, " connected ") {
+			res := strings.Split(iline, " ")[2]
+			res = strings.Split(res, "+")[0]
+
+			return strings.TrimSpace(res)
 		}
 	}
 
